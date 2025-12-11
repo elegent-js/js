@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <button id="modal" class="btn btn-primary">模态框</button> &nbsp;
+        <button id="alert" class="btn btn-primary">alert</button> &nbsp;
+        <button id="confirm" class="btn btn-default">确认框</button>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"> </script>
+    <script src="js/Modal.js"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            $("#modal").on("click", function(e) {
+                Modal.show({
+                title: '新增用户',
+                template: '#userFormTpl',
+                animation: false,
+                size: 'modal-lg',
+                buttons: [
+                    {
+                    text: '保存',
+                    class: 'btn-primary',
+                    onClick: function () {
+                        console.log('save')
+                        Modal.hide()
+                    }}
+                ]})
+            })
+
+            $("#alert").on("click", e => {
+                Modal.alert("保存成功");
+            })
+
+            $("#confirm").on("click", e => {
+                Modal.confirm({
+                    title: '删除确认',
+                    content: '确定删除该记录？',
+                    onOk: function () {
+                        console.log('delete')
+                    },
+
+                    onCancel: function() {
+                        console.log('cancel')
+                    }
+                })
+            });
+        });
+
+            
+    </script>
+
+    <script type="text/template" id="userFormTpl">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户名</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control">
+            </div>
+            </div>
+        </form>
+    </script>
+</body>
+</html>
